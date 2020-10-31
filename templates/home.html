@@ -6,6 +6,48 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello devendra pratap singh...... This is homepage</h1>
+    <textarea name="" id="emp_id" cols="20" rows="1"></textarea><br><br>
+    <button id='getdatabtn' name="getdatabtn" onclick="get_data()">Get Data</button><br><br><br>
+    <p id="id"></p><br><br>
+    <p id="employee_id"></p><br><br>
+    <p id="name"></p>
 </body>
+<script>
+
+        function get_data(){
+
+            var id = document.getElementById('emp_id').value;
+
+            url = "http://127.0.0.1:8000/get_data/"+id;
+
+            //alert(url);
+
+            let request = new XMLHttpRequest();
+
+            request.open("GET",url);
+            request.send();
+
+            request.onload =()=>{
+                console.log(request);
+                if (request.status == 200){
+                    //alert(request.response);
+                    var obj = JSON.parse(request.response);
+                    document.getElementById('id').innerHTML = obj.id;
+                    document.getElementById('employee_id').innerHTML = obj.emp_id;
+                    document.getElementById('name').innerHTML = obj.emp_name;
+                }
+                else{
+                    alert(request.statusText);
+                }
+
+            }
+
+
+
+
+
+        }
+
+
+</script>
 </html>
